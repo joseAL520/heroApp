@@ -8,6 +8,10 @@
 
 
     <!-- Image -->
+    <img 
+        mat-card-image
+        [src]="hero | imgCardHeroPipe " [alt]="hero.superhero"
+    >
 
     <mat-card-content class="mt-2">
         <h4>{{hero.publisher}}</h4>
