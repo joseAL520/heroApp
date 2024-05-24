@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { enviroments } from '../../../environments/environments';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { Hero } from '../interfaces/hero.interfaces';
 
 
@@ -14,8 +14,18 @@ export class HeroService {
         private http: HttpClient
     ) { }
 
+    /// listado de heroes
     getHero(): Observable <Hero[]>{
         return this.http.get<Hero[]>(`${ this.baseUrl}/heroes`);
+    }
+
+    // buscar heroe por id
+    getHeroBy(id:string):Observable<Hero | undefined>{
+        return this.http.get<Hero>(`${this.baseUrl}/heroes/${id}`)
+            .pipe(
+                // of crea un observabol
+                catchError(error => of(undefined))
+            )
     }
     
 }
