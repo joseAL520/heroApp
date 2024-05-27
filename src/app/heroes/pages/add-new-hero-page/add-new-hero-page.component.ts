@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HeroService } from '../../services/hero.service';
 import { Hero, Publisher } from '../../interfaces/hero.interfaces';
 
-import { switchMap } from 'rxjs';
+import { filter, switchMap } from 'rxjs';
 
 import { DialogComponent } from '../../components/dialog/dialog.component';
 
@@ -99,12 +99,32 @@ export class AddNewHeroPageComponent implements OnInit{
       data: this.heroForm.value
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(!result) return;
 
-      // eliminar
-      console.log('delet');
+      // forma 1
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if(!result) return;
+
+    //   // eliminar
+    //   this.heroService.deletHero(this.currentHero.id)
+    //       .subscribe(wasDeleted => {
+    //           if(wasDeleted) this.router.navigate(['/heroes'])
+    //       });
+      
+    // });
+
+
+    // forma 2 obtimizado
+
+    dialogRef.afterClosed()
+    .pipe(
+      filter( (result: boolean) => result === true ),
+      switchMap( () =>  this.heroService.deletHero(this.currentHero.id)),
+      filter( (wasDelet: boolean) => wasDelet )
+    )
+    .subscribe( () => {
+      this.router.navigate(['/heroes/list'])
     });
+
 
 
   }

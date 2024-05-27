@@ -8,7 +8,7 @@ import { Hero } from '../../interfaces/hero.interfaces';
   
   <h2 mat-dialog-title>Estas seguro?</h2>
   <mat-dialog-content>
-  <p> Este proceso no es reversible, esta apunto de eleminar a </p>
+  <p> Este proceso no es reversible, esta apunto de eleminar a <strong> {{data.superhero}} </strong> </p>
  
   </mat-dialog-content>
   <mat-dialog-actions>
