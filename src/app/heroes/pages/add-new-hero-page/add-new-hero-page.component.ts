@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 import { HeroService } from '../../services/hero.service';
 import { Hero, Publisher } from '../../interfaces/hero.interfaces';
+
 import { switchMap } from 'rxjs';
+
+import { DialogComponent } from '../../components/dialog/dialog.component';
 
 @Component({
   selector: 'app-add-new-hero-page',
@@ -34,7 +39,8 @@ export class AddNewHeroPageComponent implements OnInit{
     private heroService: HeroService,
     private activateRouter: ActivatedRoute,
     private router: Router,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private dialog: MatDialog,
   ){}
   
   
@@ -83,6 +89,23 @@ export class AddNewHeroPageComponent implements OnInit{
         this.showSnabar(`${hero.superhero} Created`);
 
       })
+
+  }
+
+  onDeleteHero(){
+    if(!this.currentHero.id)throw Error('HERO ID IS REQUERID');
+
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: this.heroForm.value
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result) return;
+
+      // eliminar
+      console.log('delet');
+    });
+
 
   }
 

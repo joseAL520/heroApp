@@ -12,6 +12,7 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { MaterialModule } from '../material/material.module';
 import { CardComponent } from './components/card/card.component';
 import { ImgCardPipe } from './pipes/img-card.pipe';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ImgCardPipe } from './pipes/img-card.pipe';
     AddNewHeroPageComponent,
     SearchPageComponent,
     CardComponent,
+    DialogComponent,
 
     //pipes
     ImgCardPipe
